@@ -3,18 +3,21 @@
   <vendor>Tencent</vendor>
   <name>TencentOS-tiny</name>
   <description>TencentOS tiny for external devices</description>
-  <url>https://github.com/OpenAtomFoundation/TencentOS-tiny/tree/master/tools/mdk_pack/</url>
+  <url>https://raw.githubusercontent.com/OpenAtomFoundation/TencentOS-tiny/master/tools/mdk_pack/</url>
   <license>LICENSE.txt</license>
   <supportContact>1797878653@qq.com</supportContact>
   
   <releases>
+	<release version="1.0.1" date="2022-01-16">
+		add gcc of arch for configuration
+    </release>
     <release version="1.0.0" date="2021-09-08">
 		Updated new pack:
-		(1) The package packages the TencentOS tiny operating system for the ARM Cortex-M0+, Cortex-M0, Cortex-M3, Cortex-M4, Cortex-M7, Cortex-M23 and Cortex-M33 cores, enabling quick installation of the TencentOS tiny corresponding kernel in a Keil project.
-		(2) The package can automatically adapt to the kernel selected for the project, and the arch file can be displayed automatically according to the kernel.
+		(1) The pack packages the TencentOS tiny operating system for the ARM Cortex-M0+, Cortex-M0, Cortex-M3, Cortex-M4, Cortex-M7, Cortex-M23 and Cortex-M33 cores, enabling quick installation of the TencentOS tiny corresponding kernel in a Keil project.
+		(2) The pack can automatically adapt to the kernel selected for the project, and the arch file can be displayed automatically according to the kernel.
 		(3) When the user checks a component, the package will automatically indicate that other modules need to be checked, and can be checked with one click using Resolve in the interface.
-		(4) The user can modify the tos_config file of the corresponding kernel to tailor the functions of TencentOS tiny on their own.
-		(5) The package has been tested on ARM MDK Version 5.14, 5.30, 5.35, completed with ARM Cortex-M0+, Cortex-M0, Cortex-M3, Cortex-M4, Cortex-M7, Cortex-M23 and Cortex-M33 cores, core-based based chips as well as microcontroller development boards were ported.
+		(4) Users can modify the tos_config file of the corresponding kernel to tailor the functions of TencentOS tiny on their own.
+		(5) The pack has been tested on ARM MDK Version 5.14, 5.30, 5.35, completed with ARM Cortex-M0+, Cortex-M0, Cortex-M3, Cortex-M4, Cortex-M7, Cortex-M23 and Cortex-M33 cores, core-based based chips as well as microcontroller development boards were ported.
     </release>  
   </releases>
   
@@ -193,7 +196,7 @@
 	<bundle Cbundle="MDK-ARM" Cclass="TencentOS tiny" Cversion="1.0.0">
 		<description>TencentOS tiny</description>
 		<doc>examples/OpenAtomFoundation_TencentOS-tiny_ 腾讯物联网终端操作系统.html</doc>
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m0+">
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m0+">
 		  <description>arch for arm_v7m_cortex_m0+_armcc</description>
 		  <files>
 			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
@@ -205,7 +208,19 @@
 			<file category="source"  name="arch/arm/arm-v7m/cortex-m0+/armcc/port_s.S"/>
 		  </files>
 		</component>
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m3">
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m0+">
+		  <description>arch for arm_v7m_cortex_m0+_armcc</description>
+		  <files>
+			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m0+/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m0+/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m0+/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m0+/gcc/port_s.S"/>
+		  </files>
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m3">
 		  <description>arch for arm_v7m_cortex_m3_armcc</description>
 		  <files>
 			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
@@ -216,8 +231,20 @@
 			<file category="source"  name="arch/arm/arm-v7m/cortex-m3/armcc/port_c.c"/>
 			<file category="source"  name="arch/arm/arm-v7m/cortex-m3/armcc/port_s.S"/>
 		  </files>
-		</component>	
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m4">
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m3">
+		  <description>arch for arm_v7m_cortex_m3_armcc</description>
+		  <files>
+			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m3/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m3/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m3/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m3/gcc/port_s.S"/>
+		  </files>
+		</component>		
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m4">
 		  <description>arch for arm_v7m_cortex_m4_armcc</description>
 		  <RTE_Components_h>
 			#define RTE_DEVICE_STARTUP_STM32F4xx    /* Device Startup for STM32F4 */
@@ -232,7 +259,22 @@
 			<file category="source"  name="arch/arm/arm-v7m/cortex-m4/armcc/port_s.S"/>
 		  </files>
 		</component>
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m7">
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m4">
+		  <description>arch for arm_v7m_cortex_m4_armcc</description>
+		  <RTE_Components_h>
+			#define RTE_DEVICE_STARTUP_STM32F4xx    /* Device Startup for STM32F4 */
+		  </RTE_Components_h>
+		  <files>
+			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m4/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m4/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m4/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m4/gcc/port_s.S"/>
+		  </files>
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m7">
 		  <description>arch for arm arm_v7m_cortex_m7_armcc</description>
 		  <files>
 			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
@@ -244,7 +286,19 @@
 			<file category="source"  name="arch/arm/arm-v7m/cortex-m7/armcc/port_s.S"/>
 		  </files>
 		</component>
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m0">
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m7">
+		  <description>arch for arm arm_v7m_cortex_m7_armcc</description>
+		  <files>
+			<file category="include" name="arch/arm/arm-v7m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m7/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v7m/cortex-m7/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m7/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v7m/cortex-m7/gcc/port_s.S"/>
+		  </files>
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m0">
 		  <description>arch for arm_v6m_cortex_m0_armcc</description>
 		  <files>
 			<file category="include" name="arch/arm/arm-v6m/common/include/"/>
@@ -255,8 +309,20 @@
 			<file category="source"  name="arch/arm/arm-v6m/cortex-m0/armcc/port_c.c"/>
 			<file category="source"  name="arch/arm/arm-v6m/cortex-m0/armcc/port_s.S"/>
 		  </files>
-		</component>	
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m23">
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m0">
+		  <description>arch for arm_v6m_cortex_m0_armcc</description>
+		  <files>
+			<file category="include" name="arch/arm/arm-v6m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v6m/cortex-m0/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v6m/cortex-m0/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v6m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v6m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v6m/cortex-m0/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v6m/cortex-m0/gcc/port_s.S"/>
+		  </files>
+		</component>		
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m23">
 		  <description>arch for arm_v8m_cortex_m23_armcc</description>
 		  <files>
 			<file category="include" name="arch/arm/arm-v8m/common/include/"/>
@@ -267,8 +333,20 @@
 			<file category="source"  name="arch/arm/arm-v8m/cortex-m23/armcc/port_c.c"/>
 			<file category="source"  name="arch/arm/arm-v8m/cortex-m23/armcc/port_s.S"/>
 		  </files>
-		</component>	
-		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" condition="arch_for_cortex_m33">
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m23">
+		  <description>arch for arm_v8m_cortex_m23_armcc</description>
+		  <files>
+			<file category="include" name="arch/arm/arm-v8m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v8m/cortex-m23/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v8m/cortex-m23/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v8m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v8m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v8m/cortex-m23/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v8m/cortex-m23/gcc/port_s.S"/>
+		  </files>
+		</component>		
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="armcc" condition="arch_for_cortex_m33">
 		  <description>arch for arm_v8m_cortex_m33_armcc</description>
 		  <files>
 			<file category="include" name="arch/arm/arm-v8m/common/include/"/>
@@ -278,6 +356,18 @@
 			<file category="source"  name="arch/arm/arm-v8m/common/tos_fault.c"/>
 			<file category="source"  name="arch/arm/arm-v8m/cortex-m33/armcc/port_c.c"/>
 			<file category="source"  name="arch/arm/arm-v8m/cortex-m33/armcc/port_s.S"/>
+		  </files>
+		</component>
+		<component Cgroup="arch" Csub="arch" Cversion="1.0.0" Cvariant="gcc" condition="arch_for_cortex_m33">
+		  <description>arch for arm_v8m_cortex_m33_armcc</description>
+		  <files>
+			<file category="include" name="arch/arm/arm-v8m/common/include/"/>
+			<file category="header" name="arch/arm/arm-v8m/cortex-m33/gcc/port.h"/>
+			<file category="header" name="arch/arm/arm-v8m/cortex-m33/gcc/port_config.h" attr="config" version="1.0.0"/>
+			<file category="source"  name="arch/arm/arm-v8m/common/tos_cpu.c"/>
+			<file category="source"  name="arch/arm/arm-v8m/common/tos_fault.c"/>
+			<file category="source"  name="arch/arm/arm-v8m/cortex-m33/gcc/port_c.c"/>
+			<file category="source"  name="arch/arm/arm-v8m/cortex-m33/gcc/port_s.S"/>
 		  </files>
 		</component>
 		
